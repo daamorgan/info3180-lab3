@@ -5,13 +5,31 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 This file creates your application.
 """
 
-from app import app
+from app import app, mail
 from flask import render_template, request, redirect, url_for, flash
+from .forms import ContactForm
+from flask_mail import Message
 
 
 ###
 # Routing for your application.
 ###
+
+@app.route('/contact', methods=['POST','GET'])
+def contact():
+    form=ContactForm()
+    if request.method=="POST":
+        if form.validate_on_submit():
+            name=form.name.data
+            email=form.email.data
+            subject=form.subject.data
+            msg=Message(subject, sender=(name, email), recipients=["to@example.com"])#NEED TO CHANGE RECIPIENT
+            msg.body=form.message.data
+            mail.send(msg)
+            flash("Your email was successfully sent")
+            return redirect(url_for("home"))
+        flash_errors(form)
+    return render_template("contact.html", form=form)
 
 @app.route('/')
 def home():
@@ -67,3 +85,4 @@ def page_not_found(error):
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port="8080")
+

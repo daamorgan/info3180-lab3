@@ -1,3 +1,42 @@
 body {
     padding-top: 5rem;
 }
+
+.required{
+    color:red;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 40px;
+}
+
+.formItem{
+    padding-bottom:25px;
+    line-height: normal;
+}
+.flashes li{
+    list-style: none;
+    color: purple;
+    font-size: medium;
+    font-weight: bold;
+}
+
+textarea{
+    width:500px;
+    height:100px;
+}
+
+input{
+    width:350px;
+    height: 30px;
+}
+
+button{
+    background-color:#007bff;
+    color: white;
+    border-radius: 10%;
+    border-style: none;
+    padding:5px 15px;
+}
